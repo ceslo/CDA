@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccueilController!{% endblock %}
+
+{% block body %}
+<section class="fond">
+<h1> Page d'accueil</h1>
+</section>
+<section class="d-flex justify-content-center">
+        
+    <div class="crounded d-flex justify-content-evenly col-xl-10 row mt-5">
+ 
+  
+        {% for cat in categories %}
+        <a href="#" class="cat card rounded col-3 col-lg-2 mt-3 mb-5 g-0" >           
+            <h5 class="mark rounded text-center" style="">{{cat.id}}</h5>
+          </div> 
+        </a>
+        {% endfor %}
+    </div>
+  </section>
+{% endblock %}
