@@ -48,6 +48,9 @@ class Adresse
     #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'adresse_facturation')]
     private Collection $commandes_facturees;
 
+    #[ORM\ManyToOne(inversedBy: 'adresses')]
+    private ?Client $client = null;
+
     public function __construct()
     {
         $this->commandes_livrees = new ArrayCollection();
@@ -206,6 +209,18 @@ class Adresse
                 $commandesFacturee->setAdresseFacturation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): static
+    {
+        $this->client = $client;
 
         return $this;
     }

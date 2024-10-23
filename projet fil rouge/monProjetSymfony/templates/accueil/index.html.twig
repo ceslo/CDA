@@ -3,20 +3,18 @@
 {% block title %}Hello AccueilController!{% endblock %}
 
 {% block body %}
-<section class="fond">
+<section class="fond g-0 m-0">
 <h1> Page d'accueil</h1>
 </section>
-<section class="d-flex justify-content-center">
+
+<section class="fond g-0 m-0">
         
-    <div class="crounded d-flex justify-content-evenly col-xl-10 row mt-5">
- 
-  
-        {% for cat in categories %}
-        <a href="#" class="cat card rounded col-3 col-lg-2 mt-3 mb-5 g-0" >           
-            <h5 class="mark rounded text-center" style="">{{cat.id}}</h5>
+      {% for cat in categories %}
+        <a href="/catalogue/categorie/{{ cat.id }}" class="card" >           
+            <h5 class="text-center" style="">{{cat.libelleCategorie}}</h5>
           </div> 
         </a>
         {% endfor %}
-    </div>
+   
   </section>
 {% endblock %}

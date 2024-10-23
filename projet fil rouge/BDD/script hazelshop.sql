@@ -24,7 +24,7 @@ CREATE TABLE utilisateur(
    nom VARCHAR(50)  NOT NULL,
    prenom VARCHAR(50)  NOT NULL,
    mail VARCHAR(50)  NOT NULL,
-   pseudo VARCHAR(50) ,
+   pseudo VARCHAR(50),
    date_inscription DATE NOT NULL,
    id_type_utilisateur INT NOT NULL,
    PRIMARY KEY(id_utilisateur),
@@ -185,7 +185,7 @@ INSERT INTO article (id_article, libelle_article, description, img_article, qte_
  
 INSERT INTO utilisateur( nom , prenom , mail, date_inscription, id_type_utilisateur) VALUES ( "Scott", "Michael","m.scott@mail.com", "2020-09-06" ,1);
 INSERT INTO utilisateur( nom , prenom , mail, date_inscription, id_type_utilisateur) VALUES ( "Palmer", "Meredith","m.palmer@mail.com", "2021-11-27" ,1);
-INSERT INTO utilisateur( nom , prenom , mail, date_inscription, id_type_utilisateur) VALUES ( "Beesly", "Pamela","p.beesly@mail.com", "2022-08-22" ,1);
+INSERT INTO utilisateur( nom , prenom , mail, date_inscription, id_type_utilisateur) VALUES ( "Beesly", "Pamela","p.beesly@mail.com", "2021-11-27" ,1);
 
 
 INSERT INTO client (num_client, telephone, coef_client, commercial, id_type_client, id_utilisateur) VALUES ("999000", "0404040404", "1.35" ,"MrTruc", "1", "1" );

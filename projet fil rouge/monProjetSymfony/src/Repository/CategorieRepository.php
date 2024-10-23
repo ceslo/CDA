@@ -17,6 +17,38 @@ class CategorieRepository extends ServiceEntityRepository
 
     }
 
+    // public function getCategorieMereOnly(){
+
+    //     $entityManager= $this->getEntityManager();
+
+    //     $queryBuilder= $entityManager->createQueryBuilder();
+    //     $queryBuilder
+    //             ->select('c')
+    //             ->from(Categorie::class , 'c')                  
+    //             ->Where('c.categorie_mere is NULL');                
+    //     $query=$queryBuilder->getQuery();
+    //     $categorieMere= $query->getResult();
+    //     return $categorieMere;  
+      
+    // }
+
+    // public function getCategorieByCategorieMere($id){
+    
+    //     $entityManager=$this->getEntityManager();
+
+    //     $queryBuilder=$entityManager->createQueryBuilder();
+    //     $queryBuilder
+    //             ->select ('c')
+    //             ->from (Categorie::class, 'c')
+    //             ->where ('c.categorieMere = :id')
+    //             ->setParameter('id', $id); 
+    
+    //     $query=$queryBuilder->getQuery();
+    //     $categorie= $query->getResult();
+    //     return $categorie;         
+    
+    // }
+
 //    /**
 //     * @return Categorie[] Returns an array of Categorie objects
 //     */

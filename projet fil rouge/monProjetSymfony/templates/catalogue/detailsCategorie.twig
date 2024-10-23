@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    {% for art in articles %}
+        <a  href="/catalogue/article/{{art.id}}" class="card" >           
+            <h5 class="text-center" style="">{{art.libelleArticle}}</h5>
+          </div> 
+        </a>
+    {% endfor %}
+
+    {% for cat in categories %}
+        <a href="/catalogue/categorie/{{cat.id}}" class="card">           
+            <h5 class="text-center" style="">{{cat.libelleCategorie}}</h5>
+        </a>
+    {% endfor %}
+
+{% endblock %}

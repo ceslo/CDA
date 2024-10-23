@@ -1,15 +1,18 @@
 header {
-    background-color: #456456     ;
+    background-color:  #456456   ;
 }
-.titre {
-    
-    font-style: normal;
-    font-weight: bolder;
+.titre {  
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .fond {
     background-color:#BFB4A0 ;
 }
 
 .cat {
+    background-color: #456456;
+}
+.card{
+    
     background-color: #456456;
 }

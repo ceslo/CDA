@@ -39,8 +39,7 @@ class Client
     #[ORM\Column(nullable: true)]
     private ?float $reduction_pro = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $commercial = null;
+   
 
     /**
      * @var Collection<int, Commande>
@@ -48,9 +47,26 @@ class Client
     #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'client')]
     private Collection $commandes;
 
+    #[ORM\OneToOne(mappedBy: 'client', cascade: ['persist', 'remove'])]
+    private ?Utilisateur $utilisateur = null;
+
+    #[ORM\ManyToOne(inversedBy: 'clients')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?TypeClient $type_client = null;
+
+    #[ORM\ManyToOne(inversedBy: 'clients')]
+    private ?utilisateur $commercial = null;
+
+    /**
+     * @var Collection<int, Adresse>
+     */
+    #[ORM\OneToMany(targetEntity: Adresse::class, mappedBy: 'client')]
+    private Collection $adresses;
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
+        $this->adresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -160,17 +176,7 @@ class Client
         return $this;
     }
 
-    public function getCommercial(): ?string
-    {
-        return $this->commercial;
-    }
-
-    public function setCommercial(string $commercial): static
-    {
-        $this->commercial = $commercial;
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, Commande>
@@ -196,6 +202,82 @@ class Client
             // set the owning side to null (unless already changed)
             if ($commande->getClient() === $this) {
                 $commande->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?Utilisateur
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?Utilisateur $utilisateur): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($utilisateur === null && $this->utilisateur !== null) {
+            $this->utilisateur->setClient(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($utilisateur !== null && $utilisateur->getClient() !== $this) {
+            $utilisateur->setClient($this);
+        }
+
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    public function getTypeClient(): ?TypeClient
+    {
+        return $this->type_client;
+    }
+
+    public function setTypeClient(?TypeClient $type_client): static
+    {
+        $this->type_client = $type_client;
+
+        return $this;
+    }
+
+    public function getCommercial(): ?utilisateur
+    {
+        return $this->commercial;
+    }
+
+    public function setCommercial(?utilisateur $commercial): static
+    {
+        $this->commercial = $commercial;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Adresse>
+     */
+    public function getAdresses(): Collection
+    {
+        return $this->adresses;
+    }
+
+    public function addAdress(Adresse $adress): static
+    {
+        if (!$this->adresses->contains($adress)) {
+            $this->adresses->add($adress);
+            $adress->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdress(Adresse $adress): static
+    {
+        if ($this->adresses->removeElement($adress)) {
+            // set the owning side to null (unless already changed)
+            if ($adress->getClient() === $this) {
+                $adress->setClient(null);
             }
         }
 

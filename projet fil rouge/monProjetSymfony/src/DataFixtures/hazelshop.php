@@ -52,7 +52,7 @@ $client = array(
 /* `hazelshop`.`commande` */
 $commande = array(
   array('id_commande' => '1','date_commande' => '2020-09-06','coef_client' => '1.35','remise' => NULL,'total' => '25.43','frais_port' => '4.90','mode_paiement' => 'CB','delais_reglement' => '0','montant_regle' => '30.33','num_facture' => '1','statut' => 'livrée','adresse_facturation' => '1','adresse_livraison' => '1','id_client' => '1'),
-  array('id_commande' => '2','date_commande' => '2021-12-20','coef_client' => '1.20','remise' => NULL,'total' => '265.90','frais_port' => '4.90','mode_paiement' => 'virement','delais_reglement' => '30','montant_regle' => '270.80','num_facture' => '1','statut' => 'livrée','adresse_facturation' => '2','adresse_livraison' => '2','id_client' => '2')
+  array('id_commande' => '2','date_commande' => '2021-12-20','coef_client' => '1.20','remise' => NULL,'total' => '265.90','frais_port' => '4.90','mode_paiement' => 'virement','delais_reglement' => '30','montant_regle' => '270.80','num_facture' => '2','statut' => 'livrée','adresse_facturation' => '2','adresse_livraison' => '2','id_client' => '2')
 );
 
 /* `hazelshop`.`details_commande` */

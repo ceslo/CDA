@@ -118,7 +118,6 @@ class Categorie
 
         return $this;
     }
-
     /**
      * @return Collection<int, Article>
      */
@@ -145,7 +144,7 @@ class Categorie
                 $article->setCategorie(null);
             }
         }
-
+        
         return $this;
     }
 }

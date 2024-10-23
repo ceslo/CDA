@@ -35,7 +35,5 @@ class GestionController extends AbstractController
             'controller_name' => 'GestionController',
             'formArticle'=> $formArticle
         ]);
-    }
- 
-    
+    }    
 }

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+	<div class="card">
+		<h5 class="text-center" style="">{{article.libelleArticle}}</h5>
+		<a href='/panier_add/{{article.id}}' class="btn">Ajouter au panier</a>
+	</div>
+
+
+{% endblock %}
