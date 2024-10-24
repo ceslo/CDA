@@ -179,7 +179,7 @@ class Jeu1 extends Fixture
         $utilisateur1=new Utilisateur();
         $utilisateur1-> setNom("Scott");
         $utilisateur1->setPrenom("Michael");
-        $utilisateur1->setPassword("1234");
+        $utilisateur1->setPassword('$2y$13$Nx/KhOvL7cpjb3JvZy46T.GKE5vsSXFmO6UiWu1XxvSOg7935goh.');
         $utilisateur1->setEmail("m.scott@mail.com");
         $utilisateur1->setDateInscription(new DateTime('2020-09-06'));
         $utilisateur1->setTypeUtilisateur($typeUtilisateur1);
@@ -190,7 +190,7 @@ class Jeu1 extends Fixture
         $utilisateur2=new Utilisateur();
         $utilisateur2->setNom("Palmer");
         $utilisateur2->setPrenom("Meredith");
-        $utilisateur2->setPassword("1234");
+        $utilisateur2->setPassword('$2y$13$Nx/KhOvL7cpjb3JvZy46T.GKE5vsSXFmO6UiWu1XxvSOg7935goh.');
         $utilisateur2->setEmail("m.palmer@mail.com");
         $utilisateur2->setDateInscription(new DateTime('2021-11-27'));
         $utilisateur2->setTypeUtilisateur($typeUtilisateur1);
@@ -201,7 +201,7 @@ class Jeu1 extends Fixture
         $utilisateur3=new Utilisateur();
         $utilisateur3->setNom("Beesly");
         $utilisateur3->setPrenom("Pamela");
-        $utilisateur3->setPassword("1234");
+        $utilisateur3->setPassword('$2y$13$Nx/KhOvL7cpjb3JvZy46T.GKE5vsSXFmO6UiWu1XxvSOg7935goh.');
         $utilisateur3->setEmail("p.beesly@mail.com");
         $utilisateur3->setDateInscription(new DateTime('2021-11-27'));
         $utilisateur3->setTypeUtilisateur($typeUtilisateur1);
@@ -211,7 +211,7 @@ class Jeu1 extends Fixture
 
         $utilisateur4=new Utilisateur();
         $utilisateur4->setNom("Convenant");
-        $utilisateur4->setPassword("1234");
+        $utilisateur4->setPassword('$2y$13$Nx/KhOvL7cpjb3JvZy46T.GKE5vsSXFmO6UiWu1XxvSOg7935goh.');
         $utilisateur4->setPrenom("Jean-Claude");
         $utilisateur4->setEmail("jc.convenant@mail.com");
         $utilisateur4->setDateInscription(new DateTime('2018-09-01'));
@@ -222,7 +222,7 @@ class Jeu1 extends Fixture
         $utilisateur5=new Utilisateur();
         $utilisateur5->setNom("Robin");
         $utilisateur5->setPrenom("Jean-Yves");
-        $utilisateur5->setPassword("1234");
+        $utilisateur5->setPassword('$2y$13$Nx/KhOvL7cpjb3JvZy46T.GKE5vsSXFmO6UiWu1XxvSOg7935goh.');
         $utilisateur5->setEmail("jy.robin@mail.com");
         $utilisateur5->setDateInscription(new DateTime('2019-10-01'));
         $utilisateur5->setTypeUtilisateur($typeUtilisateur2);
@@ -324,8 +324,7 @@ class Jeu1 extends Fixture
         $articleRepo=$manager->getRepository(Article::class);
         $art1=$articleRepo->find(1);
         $art6=$articleRepo->find(6);
-        $art9=$articleRepo->find(9); 
-    
+        $art9=$articleRepo->find(9);     
 
         $detailsC1= new DetailsCommande();
         $detailsC1->setArticle($art6);
@@ -364,7 +363,6 @@ class Jeu1 extends Fixture
         $manager->persist($livraison2);   
         $manager->flush();
 
-
         //Les details livraison
 
         $detailL1=new DetailsLivraison();
@@ -385,11 +383,7 @@ class Jeu1 extends Fixture
         $detailL3->setQteLivree(4);
         $manager->persist($detailL3);
 
-        $manager->flush();
-    
-
-
-        
+        $manager->flush();       
      
     }
 }

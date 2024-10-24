@@ -14,26 +14,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\RequestHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class InscriptionController extends AbstractController
 {
     #[Route('/inscription', name: 'app_inscription')]
-    public function index(Request $request, EntityManagerInterface $entitymanager, TypeUtilisateurRepository $typeUtilisateurRepo, TypeClientRepository $typeClientRepo, UtilisateurRepository $utilisateurRepo): Response
+    public function index(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entitymanager, TypeUtilisateurRepository $typeUtilisateurRepo, TypeClientRepository $typeClientRepo, UtilisateurRepository $utilisateurRepo): Response
     {
         $form=$this->createForm(InscriptionType::class);
         
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data=$form->getData();
-
+            $utilisateur=$form->getData();
             //creation d'un nouvel utilisateur type CLIENT
-            $utilisateur= new Utilisateur();
-            $utilisateur=$data;
+            // $utilisateur= new Utilisateur();
+            // $utilisateur=$data;
             // $utilisateur->setEmail($data['email']);
             // $utilisateur->setNom($data['nom']);
             // $utilisateur->setPrenom($data['prenom']);
+             /** @var string $plainPassword */
+            $plainPassword = $form->get('plainPassword')->getData();
+
+             // encode the plain password
+            $utilisateur->setPassword($userPasswordHasher->hashPassword($utilisateur, $plainPassword));
+             
             $utilisateur->setDateInscription(new DateTime());
 
             $typeUtilisateur=$typeUtilisateurRepo->findOneBy(['libelle_utilisateur'=>'client']);          

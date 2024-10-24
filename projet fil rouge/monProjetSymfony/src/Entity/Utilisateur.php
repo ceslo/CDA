@@ -60,8 +60,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Client::class, mappedBy: 'commercial')]
     private Collection $clients;
 
-    #[ORM\Column]
-    private bool $isVerified = false;
+    // #[ORM\Column]
+    // private bool $isVerified = false;
 
     public function __construct()
     {
@@ -246,15 +246,15 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
+    // public function isVerified(): bool
+    // {
+    //     return $this->isVerified;
+    // }
 
-    public function setVerified(bool $isVerified): static
-    {
-        $this->isVerified = $isVerified;
+    // public function setVerified(bool $isVerified): static
+    // {
+    //     $this->isVerified = $isVerified;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }
