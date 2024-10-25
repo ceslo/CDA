@@ -1,20 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccueilController!{% endblock %}
+{% block title %}Hello AccueilController!
+{% endblock %}
 
 {% block body %}
-<section class="fond g-0 m-0">
-<h1> Page d'accueil</h1>
-</section>
+	<section class="fond g-0 m-0">
+		<h1>
+			Page d'accueil</h1>
+	</section>
 
-<section class="fond g-0 m-0">
-        
-      {% for cat in categories %}
-        <a href="/catalogue/categorie/{{ cat.id }}" class="card" >           
-            <h5 class="text-center" style="">{{cat.libelleCategorie}}</h5>
-          </div> 
-        </a>
-        {% endfor %}
-   
-  </section>
+	<section class="fond g-0 m-0  ">
+		{% for cat in categories %}
+    
+			<a href="/catalogue/categorie/{{ cat.id }}" class="card">
+				<img src="../img/{{ cat.img }} class=" card-img" alt=" {{ cat.libelleCategorie }} ">
+				<div class="card-img-overlay">
+					<h5 class="card-title">{{cat.libelleCategorie}}</h5>
+				</div>
+			</a>
+		{% endfor %}
+
+	</section>
 {% endblock %}

@@ -40,6 +40,7 @@ class InscriptionType extends AbstractType
             ])
             ->add('nom')
             ->add('prenom');
+            // $this->addFlash('success', 'Your email address has been verified.');
 
         // ->add('telephone');
 

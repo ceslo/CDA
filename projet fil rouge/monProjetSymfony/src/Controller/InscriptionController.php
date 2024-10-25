@@ -27,6 +27,17 @@ class InscriptionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            
+              // generate a signed url and email it to the user
+            // $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            //     (new TemplatedEmail())
+            //         ->from(new Address('mailer@hazelshop.com', 'HazelShop'))
+            //         ->to((string) $user->getEmail())
+            //         ->subject('Please Confirm your Email')
+            //         ->htmlTemplate('registration/confirmation_email.html.twig')
+            // );
+
             $utilisateur=$form->getData();
             //creation d'un nouvel utilisateur type CLIENT
             // $utilisateur= new Utilisateur();
@@ -47,11 +58,13 @@ class InscriptionController extends AbstractController
             
             $entitymanager->persist($utilisateur);
             $entitymanager->flush();
+            
 
             // Creation d'un nouveau client type Particulier
             $client= new Client();
             // $telephone=$form->getData('telephone');
             // $client->setTelephone($telephone);
+            
             $client->setCoefClient('1.35');
             $client->setNumClient('12345678');
             $client->setUtilisateur($utilisateur);
@@ -73,4 +86,25 @@ class InscriptionController extends AbstractController
             'form'=>$form,
         ]);
     }
+        // #[Route('/verify/email', name: 'app_verify_email')]
+    // public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
+    // {
+    //     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+    //     // validate email confirmation link, sets User::isVerified=true and persists
+    //     try {
+    //         /** @var Utilisateur $user */
+    //         $user = $this->getUser();
+    //         $this->emailVerifier->handleEmailConfirmation($request, $user);
+    //     } catch (VerifyEmailExceptionInterface $exception) {
+    //         $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
+
+    //         return $this->redirectToRoute('app_insciption');
+    //     }
+
+    //     // @TODO Change the redirect on success and handle or remove the flash message in your templates
+    //     $this->addFlash('success', 'Your email address has been verified.');
+
+    //     return $this->redirectToRoute('app_register');
+    // }
 }
