@@ -22,10 +22,12 @@ class EmailVerifier
 
     public function sendEmailConfirmation(string $verifyEmailRouteName, Utilisateur $user, TemplatedEmail $email): void
     {
+
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
             $verifyEmailRouteName,
             (string) $user->getId(),
-            (string) $user->getEmail()
+            (string) $user->getEmail(),
+          
         );
 
         $context = $email->getContext();

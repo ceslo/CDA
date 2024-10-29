@@ -1,8 +1,10 @@
 header {
-    background-color:  #456456   ;
+    background-color:  #456456 ;
+    
+   
 }
 .titre {  
-
+    color:white;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .fond {
