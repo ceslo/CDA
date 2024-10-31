@@ -3,17 +3,35 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    {% for art in articles %}
-        <a  href="/catalogue/article/{{art.id}}" class="card" >           
-            <h5 class="text-center" style="">{{art.libelleArticle}}</h5>
-          </div> 
-        </a>
-    {% endfor %}
+	<div class="container mt-5">
+		<div class="row ">
 
-    {% for cat in categories %}
-        <a href="/catalogue/categorie/{{cat.id}}" class="card">           
-            <h5 class="text-center" style="">{{cat.libelleCategorie}}</h5>
-        </a>
-    {% endfor %}
+			{% for art in articles %}
+				{# <a  class="card col-3 m-auto">
+									<img src="/img/{{art.imgArticle}}" class="card-img g-0 p-0 m-0" width="100%" height="auto">
+									<div class="card-img-overlay">
+										<h5 class="titre rounded text-center text-white bg-dark">{{art.libelleArticle}}</h5>
+									</div>
+								</a> #}
 
+						<a class="card col-3 m-auto" href="/catalogue/article/{{art.id}}">
+							<img src="/img/{{art.imgArticle}}" class="card-img-top g-0 p-0 m-0" alt="...">
+							<div class="card-body bg-dark">
+								<h5 class="card-title titre text-white">{{art.libelleArticle}}</h5>
+								<p class="card-text text-white">Prix:{{art.prixAchat}}</p>
+							</div>
+						</a>
+				
+			{% endfor %}
+
+			{% for cat in categories %}
+				<a href="/catalogue/categorie/{{cat.id}}" class="card col-2">
+					<img src="/img/{{cat.imgCategorie}}" class="card-img" alt="">
+					<div class="card-img-overlay">
+						<h5 class="card-text titre rounded text-center text-white bg-dark">{{cat.libelleCategorie}}</h5>
+					</div>
+				</a>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

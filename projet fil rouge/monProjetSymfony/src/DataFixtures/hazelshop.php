@@ -33,9 +33,9 @@ Embarquez pour l’archipel des Cyclades au coeur de la Grèce Antique. Avec la 
 
 /* `hazelshop`.`categorie` */
 $categorie = array(
-  array('id_categorie' => '1','libelle_categorie' => 'Jeux Experts','img_categorie' => NULL,'categorie_mere' => NULL),
-  array('id_categorie' => '2','libelle_categorie' => 'Jeux d’ambiance','img_categorie' => NULL,'categorie_mere' => NULL),
-  array('id_categorie' => '3','libelle_categorie' => 'Escape Games','img_categorie' => NULL,'categorie_mere' => NULL),
+  array('id_categorie' => '1','libelle_categorie' => 'Jeux Experts','img_categorie' => 'experts.jpg','categorie_mere' => NULL),
+  array('id_categorie' => '2','libelle_categorie' => 'Jeux d’ambiance','img_categorie' => 'ambiance.jpg','categorie_mere' => NULL),
+  array('id_categorie' => '3','libelle_categorie' => 'Escape Games','img_categorie' => 'escape.jpg','categorie_mere' => NULL),
   array('id_categorie' => '4','libelle_categorie' => 'Jeux coopératifs','img_categorie' => NULL,'categorie_mere' => '1'),
   array('id_categorie' => '5','libelle_categorie' => 'Jeux non coopératifs','img_categorie' => NULL,'categorie_mere' => '1'),
   array('id_categorie' => '6','libelle_categorie' => 'Jeux de cartes','img_categorie' => NULL,'categorie_mere' => '3'),

@@ -81,7 +81,8 @@ class Jeu1 extends Fixture
                 //on envoie les modifications pour générer le code sql et mettre à jour la base
                 $manager ->flush();                       
 
-               };    
+               };
+            
                
         };
         // LES ARTICLES (même schéma)
