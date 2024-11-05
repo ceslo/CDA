@@ -230,6 +230,22 @@ class Jeu1 extends Fixture
         $manager->persist($utilisateur5);
         $manager->flush();
 
+
+        // Creation d'un administrateur
+
+        $utilisateur6=new Utilisateur();
+        $utilisateur6->setNom("admin");
+        $utilisateur6->setPrenom("admin");
+        $utilisateur6->setPassword('$2y$13$CxZfEbOAMBRfbZbjf4X7EeUzYUKQPYi6ljvw0ozR38EpX4lVhERSm');
+        $utilisateur6->setEmail("admin@hazelshop.com");
+        $utilisateur6->setDateInscription(new DateTime());
+        $utilisateur6->setTypeUtilisateur($typeUtilisateur3);
+        
+        $utilisateur6->setRoles(['ROLE_ADMIN']);
+        $manager->persist($utilisateur6);
+        $manager->flush();
+
+
         //les Clients
         foreach($client as $cli){
             $cliDB= new Client();

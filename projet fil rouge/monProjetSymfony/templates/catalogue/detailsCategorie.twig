@@ -25,6 +25,14 @@
 			{% endfor %}
 
 			{% for cat in categories %}
+				<a class="card col-3 m-auto" href="/catalogue/article/{{cat.id}}">
+					<img src="/img/{{cat.imgCategorie}}" class="card-img-top g-0 p-0 m-0" alt="...">
+					<div class="card-body bg-dark">
+						<h5 class="card-title titre text-white">{{art.libelleCategorie}}</h5>
+					</div>
+				</a>
+
+
 				<a href="/catalogue/categorie/{{cat.id}}" class="card col-2">
 					<img src="/img/{{cat.imgCategorie}}" class="card-img" alt="">
 					<div class="card-img-overlay">

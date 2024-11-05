@@ -15,6 +15,8 @@ class GestionController extends AbstractController
     #[Route('/gestion', name: 'app_gestion')]
     public function index(EntityManager $entityManager, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
         //pour ajouter un article
         $formArticle= $this->createForm(ArticleFormType::class);
         $formArticle->handleRequest($request);
@@ -29,8 +31,6 @@ class GestionController extends AbstractController
             return $this-> redirectToRoute('/gestion');
         }
         
-
-
         return $this->render('gestion/index.html.twig', [
             'controller_name' => 'GestionController',
             'formArticle'=> $formArticle

@@ -4,7 +4,6 @@ header {
 .fond {
   background-color: #bfb4a0;
 }
-
 .titre {
   color: white;
   font-family: "Metal Mania", system-ui;
@@ -25,7 +24,29 @@ header {
 .card:hover {
   transform: scale(1.1);
 }
-
-a{
+a {
   text-decoration: none;
+}
+.dropdown-menu {
+  background-color: #456456;
+  border: 2px solid #000000;
+}
+.carousel-caption{
+
+  top: 50%;
+  transform: translateY(-50%);
+  bottom: initial; 
+}
+.titre-carousel {
+
+  color: white;
+  font-family: "Metal Mania", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 4.5vw;
+  -webkit-text-stroke: 2px black;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  top: 50%;
+  transform: translateY(-50%);
+  bottom: initial;  
 }

@@ -3,11 +3,26 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-
-	<div class="card">
-		<h5 class="text-center" style="">{{article.libelleArticle}}</h5>
-		<a href='/panier_add/{{article.id}}' class="btn">Ajouter au panier</a>
+	<div class="container mt-5">
+		<div class="card d-flex justify-content-center col-10">
+			<div class="row">
+				<div class="col-4 d-flex align-self-center ">
+					<img src="/img/{{article.imgArticle}}" class="img-fluid  g-0 p-0 " height="100%" width="auto" alt="...">
+				</div>
+				<div class="col-8">
+					<div class="card-body">
+						<h5 class="card-title">{{article.libelleArticle}}</h5>
+						<p class="card-text">{{article.description}}</p>
+						<p class="card-text">Prix:{{article.prixAchat}}€</p>
+						<a href='/panier_add/{{article.id}}' class="btn btn-outline-dark">Ajouter au panier</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
-
+	{# <div class="card">
+			<h5 class="text-center" style="">{{article.libelleArticle}}</h5>
+			<a href='/panier_add/{{article.id}}' class="btn">Ajouter au panier</a>
+		</div> #}
 {% endblock %}
