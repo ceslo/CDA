@@ -31,6 +31,9 @@ class Article
     #[ORM\Column]
     private ?float $prix_achat = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $ref_fournisseur = null;
+
     #[ORM\ManyToOne(inversedBy: 'articles')]
     private ?Categorie $categorie = null;
 
@@ -40,8 +43,7 @@ class Article
     #[ORM\OneToMany(targetEntity: DetailsCommande::class, mappedBy: 'article')]
     private Collection $detailsCommandes;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $ref_fournisseur = null;
+   
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
     #[ORM\JoinColumn(nullable: false)]
