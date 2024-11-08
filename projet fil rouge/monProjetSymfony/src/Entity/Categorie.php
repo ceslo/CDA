@@ -147,6 +147,8 @@ class Categorie
         
         return $this;
     }
+
+    // pour recupérer le nom à la place de l'ID dans EasyAdmin:
     public function __toString(): string
     {
         return $this->libelle_categorie;

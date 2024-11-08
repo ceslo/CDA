@@ -75,4 +75,8 @@ class TypeUtilisateur
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->libelle_utilisateur;
+    }
 }

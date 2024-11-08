@@ -36,8 +36,9 @@ class ArticleCrudController extends AbstractCrudController
             MoneyField::new('prixAchat', "Prix d'achat")
                 ->setCurrency('EUR')
                 ->setCustomOption('storedAsCents', false),
-            AssociationField::new('categorie')
-            ];
+            AssociationField::new('categorie'),
+            AssociationField::new('fournisseur'),
+        ];
     }
     
 }
