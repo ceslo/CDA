@@ -259,13 +259,15 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     }
     public function getNomComplet(): string
     {
-        return $this->nom." ".$this->prenom;
+        $nomComplet=$this->nom." ".$this->prenom;
+        return $nomComplet;
+        
     }
     // pour recupérer le nom à la place de l'ID dans EasyAdmin:
-    public function __toString(): string
-    {         
-        $nomComplet=$this->getNomComplet();
-        return $nomComplet;
+    
+    // public function __toString(): string
+    // {         
+    //   return $this->getNomComplet();
       
-    }
+    // }
 }

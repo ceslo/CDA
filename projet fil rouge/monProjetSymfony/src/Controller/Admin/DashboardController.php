@@ -21,7 +21,6 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'app_admin')]
     public function index(): Response
     {
-
         // return parent::index();
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
@@ -44,29 +43,28 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-
             ->setTitle('Hazelshop Gestion')
-            ->renderContentMaximized(true);
+            ->renderContentMaximized(true)
+            ->setLocales(['fr']);
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToUrl('Accueil', 'fa fa-home', $this->generateUrl('app_accueil'));
+        // yield MenuItem::linkToCrud('The Label', 'fas fa-list'(=ref de l'icone fontawesome), EntityClass::class);
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-dashboard');
-        yield MenuItem::linkToCrud('Article', 'fa fa-folder', Article::class);
-        yield MenuItem::linkToCrud('Fournisseur', 'fa fa-folder', Fournisseur::class);
-        yield MenuItem::linkToCrud('Categorie', 'fa fa-folder', Categorie::class);
-        yield MenuItem::linkToCrud('Utilisateur', 'fa fa-folder', Utilisateur::class);
-        yield MenuItem::linkToCrud('Client', 'fa fa-folder', Client::class);
+        yield MenuItem::subMenu('Catalogue', 'fa fa-folder')->setSubItems([
+                    MenuItem::linkToCrud('Articles', 'fa fa-tags', Article::class),
+                    MenuItem::linkToCrud('Categories', 'fa fa-th-list', Categorie::class),]);
+        yield MenuItem::linkToCrud('Fournisseurs', 'fa fa-truck', Fournisseur::class);
+        yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-user-circle', Utilisateur::class);       
+        yield MenuItem::linkToCrud('Clients', 'fa fa-folder', Client::class);
+        yield MenuItem::linkToUrl('Accueil du site', 'fa fa-home', $this->generateUrl('app_accueil'));
         
-
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
-
+    
     public function configureAssets(): Assets
     {    
         return parent::configureAssets()
         ->addCssFile('/css/admin.css');
     }
-        
 }
