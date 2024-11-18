@@ -26,7 +26,8 @@ class UtilisateurCrudController extends AbstractCrudController
             TextField::new('prenom'),
             TextField::new('pseudo'),
             DateField::new('dateInscription'), 
-            AssociationField::new('typeUtilisateur'),         
+            AssociationField::new('typeUtilisateur'),
+            AssociationField::new('client'),         
 
         ];
     }
