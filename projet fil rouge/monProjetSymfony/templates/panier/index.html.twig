@@ -4,10 +4,10 @@
 {% endblock %}
 
 {% block body %}
-
+ <div class="container">
 	{%if panier is not empty %}
 		{% for item in panier %}
-			<col-8 class="card container-fluid col-8">
+			<class="card col-8">
 				<h2>
 					{{item.article.libelleArticle}}
 					=>
@@ -23,9 +23,11 @@
 					</a>
 				</div>
 			</div>
+			
 		{% endfor %}
+		<a href="{{ path('app_commande') }}" class="btn btn-outline-dark mt-2"> Valider la commande</a>
 	{% else %}
 		<h1>Votre panier est vide</h1>
 	{% endif %}
-
+</div>
 {% endblock %}

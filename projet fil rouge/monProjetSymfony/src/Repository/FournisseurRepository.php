@@ -2,8 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Article;
+use App\Entity\DetailsCommande;
 use App\Entity\Fournisseur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Mapping\OrderBy;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,6 +17,27 @@ class FournisseurRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Fournisseur::class);
+    }
+
+
+    public function qteArtSoldByFourni(): array
+    {     
+        $entityManager = $this->getEntityManager();        
+
+        $queryBuilder= $entityManager->createQueryBuilder();
+        $queryBuilder
+            ->select('f.nom_fournisseur','a.libelle_article', 'SUM(d.qte_article)') 
+            ->from (Fournisseur::class, 'f')
+            ->join(Article::class,'a','WITH', 'a.fournisseur= f.id')
+            ->join (DetailsCommande::class,'d','WITH','d.article = a.id')
+            ->groupBy('f') 
+          
+            ->orderBy('SUM(d.qte_article)', 'DESC');
+
+            $query=$queryBuilder->getQuery();
+        
+            $qteByFourni=$query->getResult();
+            return $qteByFourni;         
     }
 
 //    /**

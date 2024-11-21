@@ -271,14 +271,14 @@ class Jeu1 extends Fixture
         $client2= $clientRepository->find(2);
         $client3= $clientRepository->find(3);
 
-        $utilisateur4->addClient($client1);
-        $manager->persist($utilisateur4);
+        $utilisateur1->setClient($client1);
+        $manager->persist($utilisateur1);
         
-        $utilisateur5->addClient($client2);
-        $manager->persist($utilisateur5);
+        $utilisateur2->setClient($client2);
+        $manager->persist($utilisateur2);
         
-        $utilisateur5->addClient($client3);   
-        $manager->persist($utilisateur5);
+        $utilisateur3->setClient($client3);   
+        $manager->persist($utilisateur3);
         $manager->flush();
 
         //les adresses

@@ -55,12 +55,12 @@ class PanierController extends AbstractController
         $panier = $session->get("panier", []);
         // dd($panier);
 
-        if ($panier[$id] = 1) {
-            unset($panier[$id]);
+        if ($panier[$id]> 1) {
+            $panier[$id]--;
         } 
         else {
-            
-            $panier[$id]--;
+            unset($panier[$id]);
+    
         }
 
         $session->set("panier", $panier);

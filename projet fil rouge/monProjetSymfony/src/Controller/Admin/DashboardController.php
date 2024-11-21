@@ -7,6 +7,7 @@ use App\Entity\Categorie;
 use App\Entity\Client;
 use App\Entity\Fournisseur;
 use App\Entity\Utilisateur;
+use App\Repository\FournisseurRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -17,10 +18,16 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class DashboardController extends AbstractDashboardController
 {
+
+
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin', name: 'app_admin')]
     public function index(): Response
     {
+        $qteByFournisseur= $this->fournisseurRepository->qteArtSoldByFourni();
+        dd($qteByFournisseur);
+
+        
         // return parent::index();
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
@@ -39,7 +46,11 @@ class DashboardController extends AbstractDashboardController
         //
         return $this->render('admin/dashboard.html.twig');
     }
-
+    private FournisseurRepository $fournisseurRepository;
+    public function __construct(FournisseurRepository $fournisseurRepository)
+    {
+        $this->fournisseurRepository =$fournisseurRepository;
+    }
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
