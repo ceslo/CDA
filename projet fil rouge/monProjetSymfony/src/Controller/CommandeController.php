@@ -42,22 +42,24 @@ class CommandeController extends AbstractController
         $adresses = $adresseRepository->findBy(['client' => $client]);
         // dd($adresses);
 
-        $form = $this->createForm(AdresseCommandeType::class,null,['utilisateur'=>$utilisateur]);
+        $options['utilisateur']=$utilisateur;
+        $form = $this->createForm(AdresseCommandeType::class,null, $options);
         $form->handleRequest($request);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
             // Récupérer ou créer l'adresse
             // $adresse = Adresse::class;
-            if ($data['adresseExistante']) {
-                $adresse = $adresseRepository>find($data['adresseExistante']);
-            } elseif ($data['nouvelleAdresse']) {
-                $adresse = $data['nouvelleAdresse']
-                    ->setClient($client);
-                $entityManager->persist($adresse);
-                $entityManager->flush();
-            };
+            // if ($data['adresseExistante']) {
+            //     $adresse = $adresseRepository>find($data['adresseExistante']);
+            // } elseif ($data['nouvelleAdresse']) {
+            //     $adresse = $data['nouvelleAdresse']
+            //         ->setClient($client);
+            //     $entityManager->persist($adresse);
+            //     $entityManager->flush();
+            // };
             dd($adresse);
        
         // On récupère le contenu du panier
