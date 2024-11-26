@@ -7,6 +7,8 @@ use App\Entity\TypeUtilisateur;
 use App\Entity\Utilisateur;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,7 +21,7 @@ class UtilisateurFormType extends AbstractType
         $builder
             ->add('email')
             // ->add('roles')
-            ->add('password')
+            ->add('password', PasswordType::class,['label'=>'Mot de passe'])
             ->add('prenom')
             ->add('nom')
             // ->add('date_inscritption', null, [
@@ -37,6 +39,13 @@ class UtilisateurFormType extends AbstractType
             //     'class' => TypeUtilisateur::class,
             //     'choice_label' => 'libelleTypeUtilisateur',
             // ])
+
+            ->add('adresses', CollectionType::class, [
+                'entry_type'=>AdresseType::class,
+                'allow_add'=>true,
+
+                             
+            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Creer le profil'
             ])

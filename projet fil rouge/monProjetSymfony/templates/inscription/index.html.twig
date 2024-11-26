@@ -5,8 +5,8 @@
 
 {% block body %}
 
-	{# {{form(form)}} #}
-{{ form_start(form)}}
+	{{form(form)}}
+{# {{ form_start(form)}}
 
 	<div class="mb-0 col-6">
 		{{ form_row(form.email ,{'attr':{'class':' form form-control'}}) }}
@@ -22,16 +22,16 @@
 	</div>
 	<div class="mb-0 col-6">
 		{{ form_row(form.pseudo ,{'attr':{'class':' form form-control'}}) }}
-	</div>
+	</div> #}
 	{# <div class="mb-0 col-6">
 		{{ form_row(form.telephone ,{'attr':{'class':' form form-control'}}) }}
 	</div> #}
 	{# <div class=" mt-3 mb-0 col-6">
 		{{ form_widget(form.save, {'attr':{'class':'btn btn-outline-dark'}}) }}
 	</div> #}
-	<button type="submit" class="btn">INSCRIPTION</button>
+	{# <button type="submit" class="btn">INSCRIPTION</button>
 
 
-	{{ form_end(form)}}
+	{{ form_end(form)}} #}
 
 {% endblock %}

@@ -27,9 +27,14 @@
 			</div>
 		{% endfor %}
 		<div>
-        <p>Choisir une adresse de livraison</p>
-        <p>
-        </p>
-        </div>
-	</div>
-{% endblock %}
+			<p>Choisir une adresse de livraison</p>
+			<div class="row">
+				<div class="col">
+					{{  form(form1) }}
+				</div>
+				<div class="col">
+					{{ form(form2)}}
+				</div>
+			</div>
+		</div>
+			{% endblock %}

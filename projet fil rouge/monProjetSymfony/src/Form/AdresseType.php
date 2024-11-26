@@ -6,6 +6,10 @@ use App\Entity\Adresse;
 use App\Entity\Client;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,18 +18,15 @@ class AdresseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('libelle_adresse')
-            ->add('numero')
-            ->add('complement_adresse')
-            ->add('voie')
-            ->add('cp')
-            ->add('ville')
-            ->add('pays')
-            ->add('client', EntityType::class, [
-                'class' => Client::class,
-'choice_label' => 'id',
-            ])
-        ;
+            ->add('libelle_adresse', TextType::class,['label'=>'Ajouter un libelle à votre adresse pour la retrouver facilement (ex:Maison, Bureau...)'])
+            ->add('numero', TextType::class,['label'=>'Numero de voie'])
+            ->add('complement_adresse', TextType::class, ['label'=>"Complement d'adresse (Facultatif)", 'required'=>false])
+            ->add('voie',TextType::class, ['label'=>"Nom de voie"])
+            ->add('cp',TextType::class, ['label'=>"Code postal"])
+            ->add('ville',TextType::class, ['label'=>"Ville"])
+            ->add('pays',CountryType::class, ['label'=>"Pays"])
+            ->add('save', SubmitType::class, ['label'=>"Enregistrer cette adresse"]);
+          
     }
 
     public function configureOptions(OptionsResolver $resolver): void

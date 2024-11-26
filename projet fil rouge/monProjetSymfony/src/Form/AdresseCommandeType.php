@@ -17,13 +17,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class AdresseCommandeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-
+    {   
         $utilisateur= $options['utilisateur'];
         $builder
-            ->add('adresseExistante', EntityType::class, [
+            ->add('Adresse', EntityType::class, [
+               'label' => 'Vos adresses',
                 'class' => Adresse::class,
                 'choice_label' => 'libelleAdresse',
+                'placeholder' => 'Choissisez une de vos adresses connues',
                 'query_builder' => function (AdresseRepository $adresseRepository) use($utilisateur) {
                    
                     return $adresseRepository->createQueryBuilder('a')
@@ -32,22 +33,22 @@ class AdresseCommandeType extends AbstractType
                     ->setParameter('clientId', $utilisateur->getClient()->getId());
                                     
                 },
-                'multiple' => true,
-                'expanded' => true,
+                'multiple' => false,
+                'expanded' => false,
             ])
-
-
+            
             // ->add('nouvelleAdresse', AdresseType::class, [ // Un autre formulaire pour créer une adresse
             //     'required' => false,
             //     'label' => 'Utiliser une nouvelle adresse'
             // ])
-            ->add('save', SubmitType::class, ['label' => "Valider l'adresse"]);
+            ->add('save', SubmitType::class, ['label' => "Choisir cette adresse"]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             // Configure your form options here
+            'utilisateur' => null
         ]);
     }
 }

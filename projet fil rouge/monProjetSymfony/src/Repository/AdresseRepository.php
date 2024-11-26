@@ -33,17 +33,17 @@ class AdresseRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    // public function  findAdressesExistantes($utilisateur): array
-    // {
-    //     return $this->createQueryBuilder('a')
-    //         ->join(Utilisateur::class, 'u')
-    //         ->join(Client::class, 'c')
-    //         ->where('u.client=c.id')
-    //         ->where('c.id = a.client')
-    //         ->andWhere('u.id= :uti')
-    //         ->setParameter('uti', $utilisateur)
-    //         ->getQuery()
-    //         ->getResult()
-    //     ;
-    // }
+    public function  findAdressesExistantes($utilisateur): array
+    {
+        return $this->createQueryBuilder('a')
+            ->join(Utilisateur::class, 'u')
+            ->join(Client::class, 'c')
+            ->where('u.client=c.id')
+            ->where('c.id = a.client')
+            ->andWhere('u.id= :uti')
+            ->setParameter('uti', $utilisateur)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
