@@ -2,8 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
-use App\Repository\ArticleRepository;
+use App\Service\PanierService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -11,18 +10,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class PanierController extends AbstractController
 {
+    public function __construct( private PanierService $panierService) { 
+    }    
+
     #[Route('/panier', name: 'app_panier')]
-    public function index(ArticleRepository $articleRepository, SessionInterface $session): Response
+    public function index(): Response
     {
-        $panier = $session->get("panier", []);
-        // dd($panier);
-        $panier_details=[];
-        foreach ($panier as $id => $quantity) {
-            $panier_details[] = [
-                'article' => $articleRepository->find($id),
-                'quantite' => $quantity,
-            ];
-        };
+        $panier_details=$this->panierService->IndexPanier();
         
     //    dd($panier);
         return $this->render('panier/index.html.twig', [
@@ -31,57 +25,26 @@ class PanierController extends AbstractController
     }
 
     #[Route('/panier_add/{id}', name: 'app_panier_add')]
-    public function addToCart($id, SessionInterface $session): Response
+    public function addToCart($id): Response
     {
-        $panier = $session->get("panier", []);
-        // dd($panier);
-
-        if (isset($panier[$id])) {
-            $panier[$id]++;
-        } 
-        else {
-            $panier[$id] = 1;
-        }
-
-        $session->set("panier", $panier);
+       $this->panierService->addToCart($id);
 
         return $this->redirect("/panier");
         // return $this->redirectToRoute("app_panier");
     }
 
     #[Route('/panier_remove/{id}', name: 'app_panier_remove_one')]
-    public function removeOneFromCart($id, SessionInterface $session): Response
-    {
-        $panier = $session->get("panier", []);
-        // dd($panier);
+    public function removeOneFromCart($id): Response
+    {   $this->panierService->removeOneFromCart($id);
 
-        if ($panier[$id]> 1) {
-            $panier[$id]--;
-        } 
-        else {
-            unset($panier[$id]);
-    
-        }
-
-        $session->set("panier", $panier);
-
-        return $this->redirect("/panier");
-        // return $this->redirectToRoute("app_panier");
+        // return $this->redirect("/panier");
+        return $this->redirectToRoute("app_panier");
     }
 
     #[Route('/panier_remove/{id}', name: 'app_panier_remove')]
-    public function removeAllFromCart($id, SessionInterface $session): Response
+    public function removeAllFromCart($id): Response
     {
-        $panier = $session->get("panier", []);
-        // dd($panier);
-
-      
-        if (isset($panier[$id])) {
-
-            unset($panier[$id]);
-        }
-
-        $session->set("panier", $panier);
+        $this->panierService->removeAllFromCart($id);
 
         return $this->redirect("/panier");
         // return $this->redirectToRoute("app_panier");
