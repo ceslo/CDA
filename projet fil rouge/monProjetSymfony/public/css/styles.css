@@ -34,8 +34,8 @@ header {
   transform: scale(1.1);
 }
 .card-img-top {
-  max-height: 300px; /* Hauteur fixe pour l'image */
-  object-fit: cover; /* Ajuste l'image sans déformation */
+  max-height: 300px;
+  object-fit: contain;
 }
 .card-body {
   /* max-height: 200px; /* Hauteur fixe pour le contenu texte

@@ -11,10 +11,13 @@ use App\Repository\AdresseRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\ClientRepository;
 use App\Repository\UtilisateurRepository;
+use App\Service\PanierService;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -24,7 +27,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class CommandeController extends AbstractController
 {  
     #[Route('/commande', name: 'app_commande')]
-    public function index(SessionInterface $session, Request $request, ArticleRepository $articleRepository, UtilisateurRepository $utilisateurRepo, ClientRepository $clientRepo, AdresseRepository $adresseRepository, EntityManagerInterface $entityManager): Response
+    public function index(SessionInterface $session, Request $request, ArticleRepository $articleRepository, UtilisateurRepository $utilisateurRepo, ClientRepository $clientRepo, AdresseRepository $adresseRepository, EntityManagerInterface $entityManager,PanierService $panierService): Response
     {       
         // Recupération des données de l'utilisateur
       
@@ -33,13 +36,17 @@ class CommandeController extends AbstractController
         if (!$utilisateur) {
             throw $this->createAccessDeniedException('Vous devez être connecté pour continuer');
             // return $this->redirectToRoute('app_login');
-        }         
-       
+        } 
+        
+        // On récupère le contenu du panier
+           
+        $panier_details=$panierService->IndexPanier();
+        
         // on recupère les données du client associé l'utilisateur
         $id = $utilisateur->getUserIdentifier();
         $u = $utilisateurRepo->findOneBy(["email" => $id]);
         $clientID= $u->getClient();
-        $client=$clientRepo->findOneBy(["id"=>$clientID]);
+        $client=$clientRepo->findOneBy(["id"=>$clientID]);             
         
         // on récupère les adresses connues
         $adresses = $adresseRepository->findBy(['client' => $client]);
@@ -52,42 +59,62 @@ class CommandeController extends AbstractController
         $form2=$this->createForm(AdresseType::class);
         $form2->handleRequest($request);
 
+       //Calcul du montant total de la commande
+
+       $total_articles=$panierService->totalPanier($panier_details);
+       $frais_port=$panierService->getFraisPort($total_articles);
+       $remise=null;
+       $total_commande=$panierService->getTotalCommande($total_articles,$remise,$frais_port);
+    
+
         // Choix de l'adresse
+        $adresse= Adresse::class;
 
         if ($form1->isSubmitted() && $form1->isValid()) {
         // Récupère l'adresse existante
             $adresse = $form1->getData();
         }            
-    // OU
+        // OU
         if ($form2->isSubmitted() && $form2->isValid()) {
         // Créé l'adresse       
             $adresse = $form2->getData()
                 ->setClient($client);
             $entityManager->persist($adresse);
             $entityManager->flush();
+            
         };
-                
-        // On récupère le contenu du panier
-        $panier = $session->get("panier", []);
+
+        //choix du mode de paiement
+
      
-        $panier_details=[];
-        foreach ($panier as $id => $quantity) {
-            $panier_details[] = [
-                'article' => $articleRepository->find($id),
-                'quantite' => $quantity,
-            ];
-        };
+        $form3 = $this->createFormBuilder()
+        ->add('mode_paiement', ChoiceType::class,[
+            'choices'=>[
+                'Carte bancaire'=>'CB',
+                'Virement Bancaire'=>'virement'
+            ],
+            'multiple'=>false,
+            'expanded'=>true
+        ])
+        ->add('save', SubmitType::class, ['label' => 'choisir ce mode de paiement'])
+        ->getForm();
+
+        $form3->handleRequest($request);
+        $mode= $form3->getData('mode_paiement');
+
+    
+    
         
-        $commande=new Commande();
-        $commande
-            ->setClient($client)
-            ->setAdresseLivraison($adresse)
-            ->setAdresseFacturation($adresse)
-            ->setDateCommande(new DateTime('now'))
-            ->setFraisPort("4.90")
-            ->setModePaiement("CB")
-            ->setDelaisReglement("0")
-            ->setStatut("Enregistrée");
+        // $commande=new Commande();
+        // $commande
+        //     ->setClient($client)
+        //     ->setAdresseLivraison($adresse)
+        //     ->setAdresseFacturation($adresse)
+        //     ->setDateCommande(new DateTime('now'))
+        //     ->setFraisPort("4.90")
+        //     ->setModePaiement("CB")
+        //     ->setDelaisReglement("0")
+        //     ->setStatut("Enregistrée");
             
 
           
@@ -98,7 +125,12 @@ class CommandeController extends AbstractController
             'client'=>$client,
             'adresses'=>$adresses,
             'form1' => $form1,
-            'form2' => $form2
+            'form2' => $form2,
+            'form3'=>$form3,
+            'total_articles'=>$total_articles,
+            'frais_port'=>$frais_port,
+            'total_commande'=>$total_commande,
+            'remise'=>$remise,
         ]);
     }
 

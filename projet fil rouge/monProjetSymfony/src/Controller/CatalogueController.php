@@ -12,10 +12,14 @@ use Symfony\Component\Routing\Attribute\Route;
 class CatalogueController extends AbstractController
 {
     #[Route('/catalogue', name: 'app_catalogue')]
-    public function index(): Response
+    public function index(ArticleRepository $articleRepository, CategorieRepository $categorieRepository): Response
     {
+        $articles=$articleRepository->findAll();
+        $categories=$categorieRepository->findBy(['categorie_mere'=>null]);
         return $this->render('catalogue/index.html.twig', [
             'controller_name' => 'CatalogueController',
+            'categories'=>$categories,
+            'articles'=>$articles,
         ]);
     }
 
@@ -28,7 +32,7 @@ class CatalogueController extends AbstractController
         $articles= $articleRepository->findBy(['categorie'=>$id]);
         
         };        
-        return $this->render('catalogue/detailsCategorie.twig',[
+        return $this->render('catalogue/detailsCategorie.html.twig',[
             'controller_name'=> 'CatalogueController',
             'categories'=> $categories,
             'articles'=> $articles,
@@ -42,7 +46,7 @@ class CatalogueController extends AbstractController
 
         $article= $articleRepository->find($id);
 
-        return $this->render('catalogue/detailsArticle.twig',[
+        return $this->render('catalogue/detailsArticle.html.twig',[
             'controller_name'=> 'CatalogueController',
             'article'=> $article,
         ]);

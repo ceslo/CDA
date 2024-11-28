@@ -43,7 +43,7 @@ class PanierController extends AbstractController
         return $this->redirectToRoute("app_panier");
     }
 
-    #[Route('/panier_remove/{id}', name: 'app_panier_remove')]
+    #[Route('/panier_remove_all/{id}', name: 'app_panier_remove_all')]
     public function removeAllFromCart($id): Response
     {
         $this->panierService->removeAllFromCart($id);

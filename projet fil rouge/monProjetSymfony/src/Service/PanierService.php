@@ -64,10 +64,9 @@ class PanierService {
     {
         $panier = $this->session->get("panier", []);
         // dd($panier);      
-        if (isset($panier[$id])) {
-
+       
             unset($panier[$id]);
-        }
+        
         $this->session->set("panier", $panier);
     }
 
@@ -84,4 +83,28 @@ class PanierService {
         }
         $this->session->set("panier", $panier);      
     }
+    public function getFraisPort($total){
+        if($total>=100){
+            $frais_port=0;
+        return $frais_port;
+        }
+        else{
+            $frais_port=4.90;
+            return $frais_port;
+        }
+    }
+    
+    public function getTotalCommande($total_articles, $remise, $frais_port){
+        if($remise != null){
+            $total_commande=$total_articles-$remise+$frais_port;
+            return $total_commande;
+        }
+        else{
+            $total_commande=$total_articles+$frais_port;
+            return $total_commande;
+        }
+       
+    }
+
+    
 }

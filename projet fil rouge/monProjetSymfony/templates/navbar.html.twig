@@ -18,16 +18,19 @@
 						<ul
 							class="dropdown-menu" aria-labelledby="navbarDropdown">
 							{# {% for categorie in categories %}
-																																			 <li><a class="dropdown-item titre" href="">{{categorie.libelleCategorie}}</a></li>
-																																			{% endfor %} #}
+							<li><a class="dropdown-item titre" href="">{{categorie.libelleCategorie}}</a></li>
+							{% endfor %} #}
 							<li>
-								<a class="dropdown-item titre" href="{{ path('app_details_categories',{id:'1'}) }}">Jeux Experts</a>
+								<a class="dropdown-item sousTitre text-white" href="{{ path('app_catalogue') }}">Tous nos jeux</a>
 							</li>
 							<li>
-								<a class="dropdown-item titre" href="{{ path('app_details_categories',{id:'2'}) }}">Jeux d'Ambiance</a>
+								<a class="dropdown-item sousTitre text-white" href="{{ path('app_details_categories',{id:'1'}) }}">Jeux Experts</a>
 							</li>
 							<li>
-								<a class="dropdown-item titre" href="{{ path('app_details_categories',{id:'3'}) }}">Escape Games</a>
+								<a class="dropdown-item sousTitre text-white" href="{{ path('app_details_categories',{id:'2'}) }}">Jeux d'Ambiance</a>
+							</li>
+							<li>
+								<a class="dropdown-item sousTitre text-white" href="{{ path('app_details_categories',{id:'3'}) }}">Escape Games</a>
 							</li>
 						</ul>
 					</li>
