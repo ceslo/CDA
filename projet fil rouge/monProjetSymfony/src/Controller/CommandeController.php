@@ -32,6 +32,7 @@ class CommandeController extends AbstractController
         // Recupération des données de l'utilisateur
       
         $utilisateur= $this->getUser();
+        
 
         if (!$utilisateur) {
             throw $this->createAccessDeniedException('Vous devez être connecté pour continuer');
@@ -43,10 +44,11 @@ class CommandeController extends AbstractController
         $panier_details=$panierService->IndexPanier();
         
         // on recupère les données du client associé l'utilisateur
-        $id = $utilisateur->getUserIdentifier();
-        $u = $utilisateurRepo->findOneBy(["email" => $id]);
+        $email = $utilisateur->getUserIdentifier();
+        $u = $utilisateurRepo->findOneBy(["email" => $email]);
         $clientID= $u->getClient();
-        $client=$clientRepo->findOneBy(["id"=>$clientID]);             
+        $client=$clientRepo->findOneBy(["id"=>$clientID]);
+                  
         
         // on récupère les adresses connues
         $adresses = $adresseRepository->findBy(['client' => $client]);
@@ -59,12 +61,13 @@ class CommandeController extends AbstractController
         $form2=$this->createForm(AdresseType::class);
         $form2->handleRequest($request);
 
-       //Calcul du montant total de la commande
-
-       $total_articles=$panierService->totalPanier($panier_details);
-       $frais_port=$panierService->getFraisPort($total_articles);
-       $remise=null;
-       $total_commande=$panierService->getTotalCommande($total_articles,$remise,$frais_port);
+        //Calcul du montant total de la commande
+        $remise=null;      
+        $coef=$client->getCoefClient();
+        $total_articles=$panierService->totalPanier($panier_details,$coef);
+        $frais_port=$panierService->getFraisPort($total_articles);       
+        $total_commande=$panierService->getTotalCommande($total_articles,$coef,$remise,$frais_port);
+        //dd($coef);
     
 
         // Choix de l'adresse

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\ClientRepository;
+use App\Repository\UtilisateurRepository;
 use App\Service\PanierService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,10 +16,25 @@ class PanierController extends AbstractController
     }    
 
     #[Route('/panier', name: 'app_panier')]
-    public function index(): Response
+    public function index(UtilisateurRepository $utilisateurRepo, ClientRepository $clientRepo): Response
     {
+        $utilisateur= $this->getUser();
+
+        if($utilisateur){
+        $email = $utilisateur->getUserIdentifier();
+        $u = $utilisateurRepo->findOneBy(["email" => $email]);
+        $clientID= $u->getClient();
+        $client=$clientRepo->findOneBy(["id"=>$clientID]);
+        $coef=$client->getCoefClient();
+
         $panier_details=$this->panierService->IndexPanier();
-        $total=$this->panierService->totalPanier($panier_details) ;
+        $total=$this->panierService->totalPanier($panier_details, $coef);
+        }
+        else{
+           $coef=1.35;
+           $panier_details=$this->panierService->IndexPanier();
+           $total=$this->panierService->totalPanier($panier_details, $coef);
+        }
         
     //    dd($panier);
         return $this->render('panier/index.html.twig', [

@@ -34,12 +34,12 @@ class PanierService {
         return $panier_details;        
     }
 
-    public function totalPanier($panier_details){
+    public function totalPanier($panier_details, $coef){
         // Je calcule le prix total du panier
         $total=0;
         foreach($panier_details as $item)
         {
-            $totalItem= ($item['article']->getPrixAchat()) * $item['quantite'];
+            $totalItem= ($item['article']->getPrixAchat()*$coef) * $item['quantite'];
             $total += $totalItem;
         };
         return $total;
@@ -94,13 +94,13 @@ class PanierService {
         }
     }
     
-    public function getTotalCommande($total_articles, $remise, $frais_port){
+    public function getTotalCommande($total_articles, $coef, $remise, $frais_port){
         if($remise != null){
-            $total_commande=$total_articles-$remise+$frais_port;
+            $total_commande=($total_articles*$coef)-$remise+$frais_port;
             return $total_commande;
         }
         else{
-            $total_commande=$total_articles+$frais_port;
+            $total_commande=($total_articles*$coef)+$frais_port;
             return $total_commande;
         }
        
