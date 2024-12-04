@@ -20,22 +20,22 @@
 				<div class="row border-bottom mt-2">
 					<h5 class="col sousTitre">{{item.article.libelleArticle}}</h5>
 					<p class="col sousTitre">
-					{{item.article.prixAchat}}€ x
+					{{item.article.prixAchat|number_format(2, '.', '')}}€ x
 					{{item.quantite}}
 					=
-					{{item.article.prixAchat*item.quantite}}
+					{{item.article.prixAchat*item.quantite|number_format(2, '.', '')}}
 					€
 					</p>
 				</div>
 			{% endfor %}
 		</div>
 			<div class='col-4'>
-				<p class='border-bottom'>Total des articles: {{ total_articles }} € </p>
+				<p class='border-bottom'>Total des articles: {{ total_articles|number_format(2, '.', '') }} € </p>
 				<p class='border-bottom'>Frais de port: {{frais_port}}€</p>
 				{% if remise is not null %}
 				<p class='border-bottom'>Remise: {{remise}} </p>	
 				{% endif %}				
-				<p class='border-bottom'>Total de la commande: {{ total_commande }} €</p>
+				<p class='border-bottom'>Total de la commande: {{ total_commande |number_format(2, '.', '')}} €</p>
 			</div>
 		</div>
 

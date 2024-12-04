@@ -9,8 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+
 class CatalogueController extends AbstractController
-{
+
+{ 
     #[Route('/catalogue', name: 'app_catalogue')]
     public function index(ArticleRepository $articleRepository, CategorieRepository $categorieRepository): Response
     {

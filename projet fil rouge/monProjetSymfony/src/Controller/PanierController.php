@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\ClientRepository;
 use App\Repository\UtilisateurRepository;
+use App\Service\ClientService;
 use App\Service\PanierService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,34 +13,29 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class PanierController extends AbstractController
 {
-    public function __construct( private PanierService $panierService) { 
+    public function __construct( private PanierService $panierService, private ClientService $clientService) { 
     }    
 
     #[Route('/panier', name: 'app_panier')]
     public function index(UtilisateurRepository $utilisateurRepo, ClientRepository $clientRepo): Response
-    {
-        $utilisateur= $this->getUser();
-
-        if($utilisateur){
-        $email = $utilisateur->getUserIdentifier();
-        $u = $utilisateurRepo->findOneBy(["email" => $email]);
-        $clientID= $u->getClient();
-        $client=$clientRepo->findOneBy(["id"=>$clientID]);
-        $coef=$client->getCoefClient();
+    {         
+        // if($utilisateur){
+        // $email = $utilisateur->getUserIdentifier();
+        // $u = $utilisateurRepo->findOneBy(["email" => $email]);
+        // $clientID= $u->getClient();
+        // $client=$clientRepo->findOneBy(["id"=>$clientID]);
+        // $coef=$client->getCoefClient();
+       
+        $coef=$this->clientService->findCoef();
 
         $panier_details=$this->panierService->IndexPanier();
         $total=$this->panierService->totalPanier($panier_details, $coef);
-        }
-        else{
-           $coef=1.35;
-           $panier_details=$this->panierService->IndexPanier();
-           $total=$this->panierService->totalPanier($panier_details, $coef);
-        }
-        
+           
     //    dd($panier);
         return $this->render('panier/index.html.twig', [
             'panier' => $panier_details,
-            'total' =>$total
+            'total' =>$total,
+            'coefCli'=>$coef,
         ]);
     }
 

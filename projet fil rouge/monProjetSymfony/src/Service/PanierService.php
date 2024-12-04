@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class PanierService {   
 
@@ -20,7 +20,8 @@ class PanierService {
     }       
 
     public function IndexPanier()
-    {
+    {   
+       
         $panier = $this->session->get("panier", []);
         // dd($panier);
         $panier_details=[];

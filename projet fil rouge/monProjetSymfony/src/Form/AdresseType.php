@@ -18,7 +18,7 @@ class AdresseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('libelle_adresse', TextType::class,['label'=>'Ajouter un libelle à votre adresse pour la retrouver facilement (ex:Maison, Bureau...)'])
+            ->add('libelle_adresse', TextType::class,['label'=>'Ajouter un libelle à votre adresse pour la retrouver facilement (ex: Maison, Bureau...)'])
             ->add('numero', TextType::class,['label'=>'Numero de voie'])
             ->add('complement_adresse', TextType::class, ['label'=>"Complement d'adresse (Facultatif)", 'required'=>false])
             ->add('voie',TextType::class, ['label'=>"Nom de voie"])

@@ -2,35 +2,63 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
+#[ApiResource(
+    normalizationContext:[ 'groups'=>['read:collection']],
+    operations:[   
+        new Get,  
+        new GetCollection(),
+        new Post(),
+        new Put(),
+        new Patch(),
+        new Delete(),
+    ]
+   
+)]
+
 class Article
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['read:collection'])]
     private ?int $id = null;
 
+    #[Groups(['read:collection'])]
     #[ORM\Column(length: 50)]
     private ?string $libelle_article = null;
 
+    #[Groups(['read:collection'])]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
-
+    
+    
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $img_article = null;
 
+    #[Groups(['read:collection'])]
     #[ORM\Column(nullable: true)]
     private ?int $qte_stock = null;
 
-    #[ORM\Column]
-    private ?float $prix_achat = null;
+    #[Groups(['read:collection'])]
+    #[ORM\Column (type: Types::DECIMAL, precision: 8, scale: 2)]
+    private ?string $prix_achat = null;
 
+    #[Groups(['read:collection'])]
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $ref_fournisseur = null;
 
@@ -121,12 +149,12 @@ class Article
         return $this;
     }
 
-    public function getPrixAchat(): ?float
+    public function getPrixAchat(): ?string
     {
         return $this->prix_achat;
     }
 
-    public function setPrixAchat(float $prix_achat): static
+    public function setPrixAchat(string $prix_achat): static
     {
         $this->prix_achat = $prix_achat;
 

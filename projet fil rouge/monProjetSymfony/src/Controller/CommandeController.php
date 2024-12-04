@@ -20,14 +20,13 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 
 class CommandeController extends AbstractController
 {  
     #[Route('/commande', name: 'app_commande')]
-    public function index(SessionInterface $session, Request $request, ArticleRepository $articleRepository, UtilisateurRepository $utilisateurRepo, ClientRepository $clientRepo, AdresseRepository $adresseRepository, EntityManagerInterface $entityManager,PanierService $panierService): Response
+    public function index(Request $request, UtilisateurRepository $utilisateurRepo, ClientRepository $clientRepo, AdresseRepository $adresseRepository, EntityManagerInterface $entityManager,PanierService $panierService): Response
     {       
         // Recupération des données de l'utilisateur
       

@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\DetailsCommandeRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DetailsCommandeRepository::class)]
+#[ApiResource()]
 class DetailsCommande
 {
     #[ORM\Id]
@@ -24,8 +27,8 @@ class DetailsCommande
     #[ORM\Column]
     private ?int $qte_article = null;
 
-    #[ORM\Column]
-    private ?float $prix_achat = null;
+    #[ORM\Column (type: Types::DECIMAL, precision: 8, scale: 2)]
+    private ?string $prix_achat = null;
 
     public function getId(): ?int
     {
@@ -74,12 +77,12 @@ class DetailsCommande
         return $this;
     }
 
-    public function getPrixAchat(): ?float
+    public function getPrixAchat(): ?string
     {
         return $this->prix_achat;
     }
 
-    public function setPrixAchat(float $prix_achat): static
+    public function setPrixAchat(string $prix_achat): static
     {
         $this->prix_achat = $prix_achat;
 

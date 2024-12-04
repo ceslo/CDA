@@ -21,7 +21,7 @@
 					<img src="/img/{{art.imgArticle}}" class="card-img img-fluid" alt="..."  >
 					<div class="">
 						<h5 class="sousTitre">{{art.libelleArticle}}</h5>
-						<p class="text-end text-bottom sousTitre"> Prix: {{art.prixAchat}} €</p>
+						<p class="text-end text-bottom sousTitre"> Prix: {{art.prixAchat|number_format(2, ',', ' ')}} €</p>
 					</div>
 				</a>
 			{% endfor %}
