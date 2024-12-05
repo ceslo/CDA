@@ -3,26 +3,18 @@
 {% block title %}Hello UtilisateurController!{% endblock %}
 
 {% block body %}
-    {# <div class="mb-0 col-6">
-        {{ form_row(form.nom ,{'attr':{'class':' form form-control'}}) }}
-      </div>
+  <div class="container-fluid col-10 mt-5 p-5 cadre rounded">
 
-      <div class="mb-0 col-6">
-        {{ form_row(form.prenom ,{'attr':{'class':' form form-control'}}) }}
-      </div>
+  {% if app.user %}
+       
+    <p> Vous êtes connecté(e) en tant que {{ app.user.nomComplet }}. </p>           
+    <a class="btn btn-outline-light" href="{{ path('app_logout') }}">Se deconnecter</a>
+    <a class="btn btn-outline-light" href="{{ path('app_login')}}">Se connecter avec un autre compte</a>
+  {% else %}
+    <a class="btn btn-outline-light" href="{{ path('app_login')}}">Se connecter</a>
+    <a class="btn btn-outline-light" href="{{ path('app_inscription')}}">S'inscrire</a>
+    
+  {% endif %}   
 
-      <div class="mb-0 col-6">
-        {{ form_row(form.email ,{'attr':{'class':' form form-control'}}) }}
-      </div>
-      <div class="mb-0 col-6">
-        {{ form_row(form.password ,{'attr':{'class':' form form-control'}}) }}
-      </div>
-
-       <div class=" mt-3 mb-0 col-6">
-        {{ form_widget(form.save, {'attr':{'class':'btn btn-outline-dark'}}) }}
-      </div> #} 
-      <a class="btn btn-outline-dark" href="{{ path('app_login')}}">Se connecter</a>
-
-      <a class="btn btn-outline-dark" href="{{ path('app_inscription')}}">S'inscrire</a>
-
+</div>
 {% endblock %}
