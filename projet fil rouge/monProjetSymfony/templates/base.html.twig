@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="/css/styles.css"/>
 		
         {% block stylesheets %} 
+            {{ encore_entry_link_tags('app') }}
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Metal+Mania&family=Metamorphous&display=swap" rel="stylesheet">
@@ -18,11 +19,11 @@
 		{% endblock %}
 		
 		{% block javascripts %}
-			{% block importmap %}
+            {% block importmap %}
 				{{ importmap('app') }}
+				{{ encore_entry_script_tags('app1') }}{% endblock %}            						
 			{% endblock %}
-		{% endblock %}
-
+		
 	</head>
 	<div class="fond container-fluid m-o p-0">
 		<div class="row">
